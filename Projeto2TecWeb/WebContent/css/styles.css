@@ -1,0 +1,11 @@
+#escondido {
+	display:none;
+}
+body{
+	font-family: Poppins;
+	color:#fff;
+	background:#141A26;
+}
+
+#elemento1 {display:inline-block;margin-right:10px; width:200px; background-color:red;} 
+#elemento2 {display:inline-block; width:200px; background-color:red;} 

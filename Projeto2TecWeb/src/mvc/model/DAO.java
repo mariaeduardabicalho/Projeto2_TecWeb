@@ -358,6 +358,22 @@ public class DAO {
 		return  usuario;
 		}
 	
-	
+	public boolean existeUsuario(Usuario usuario) {
+		 boolean existe = false;
+		 try {
+		 PreparedStatement stmt = connection.
+		
+		 prepareStatement("SELECT COUNT(*) FROM usuario WHERE login=? AND senha=? LIMIT 1");
+		 stmt.setString(1, usuario.getUsuario());
+		 stmt.setString(2, usuario.getSenha());
+		 ResultSet rs = stmt.executeQuery();
+		 if(rs.next()){
+		 if(rs.getInt(1) != 0) {existe=true;}
+		 }
+		 rs.close();
+		 stmt.close();
+		 } catch(SQLException e) {System.out.println(e);}
+		 return existe;
+		 }
 	
 	}

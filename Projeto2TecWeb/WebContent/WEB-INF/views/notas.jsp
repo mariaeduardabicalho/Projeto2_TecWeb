@@ -21,30 +21,111 @@ type="text/css">
 
 
 <title>Mural</title>
+
+<style type="text/css">
+*{
+  margin:0;
+  padding:0;
+}
+body{
+  font-family:Poppins,arial,sans-serif;
+  font-size:100%;
+  margin:3em;
+  background:#141A26;
+  color:#fff;
+  
+}
+h0{
+	font-size:250%;
+}
+h2,p{
+  font-size:100%;
+  font-weight:normal;
+}
+ul,li{
+  list-style:none;
+}
+ul{
+  overflow:hidden;
+  padding:3em;
+}
+a{
+ 
+  color:#000;
+/*   background:#ffc; */
+  display:block;
+  height:20em;
+  width:20em;
+  padding:1em;
+  font-family:"Poppins",arial,sans-serif;
+  
+}
+ul li{
+  margin:1em;
+  float:
+  }
+  
+  ul li h6 {
+  font-size:150%;
+  font-weight:bold;
+  padding-bottom:10px;
+}
+ul li p h0 h2{
+  font-family:"Poppins",arial,sans-serif;
+  font-size:200%;
+}
+ input[type=text]{
+    font-family:"Poppins",arial,sans-serif;
+  	font-size:150%;
+
+    color: #223254;
+    background:#ffc;
+  
+            
+}
+
+input[type=submit]{
+    font-family:"Poppins",arial,sans-serif;
+  	font-size:100%;
+    color: #223254;
+    background:#fff;
+    border-radius: 12px;           
+}
+
+h6{
+	font-size:150%;
+}
+h1{
+	font-size:200%;
+}
+</style>
+
 </head>
-<% String usuario = (String)request.getAttribute("usuario");
+<%-- String usuario = c:out value= usuario ;
  	 System.out.println(usuario);
-	%>
+	--%>
+	
 <body>
+
+
 <h1>Mural de Notas</h1>
 
 
 
 	<jsp:useBean id="dao" class="mvc.model.DAO"/>
  
- <c:if test = "${usuario== null}">
- 		<% 
- 	 System.out.println("ENTROUNO IF NOTES");
-	%>
-	  <form action="Loga" method="POST">
+ <c:if test = "${sessionScope.usuarioLogado == null}">
+
+	  <form action="Login" method="post">
    
-    <input type="submit" value="Login" />
+    <input type="submit" value="Fazer Login" />
      </form>
-   <h6> Ainda não é cadastrado?</h6>
-     <form action="Cria1" method="POST">
-   
-    <input type="submit" value="Cadastro" />
-     </form>
+   	<h6> Ainda não é cadastrado?</h6>
+    
+    
+    <form action="cadastro" >
+    		<input type="submit"  value="Cadastrar" />
+    </form>
   
 	 </c:if>
 	
@@ -54,7 +135,9 @@ type="text/css">
 
  		<li>
 	<a style = "background:#${nota.categoria == 'aviso'? 'FF5359' : 'B9F1FF' }">
-	 <form action="Edita" method="GET">
+	 
+	 
+	 <form action="edita" method="post">
 	 <input type="hidden" name="usuario" value=${usuario}>
 	 
 	<p> ${nota.nome_doc} </p> <br/>
@@ -68,7 +151,7 @@ type="text/css">
 	 
      <input type = "hidden" name = "tipo_doc" value= ${nota.tipo_doc} ><br/>
      <input type = "text" name = "conteudo" value= ${nota.conteudo} ><br/>
-     <input type="hidden" name="id" value = ${nota.id}>
+     <input type="hidden" name="notaid" value = ${nota.id}>
      <input type="hidden" name="usuarioid" value = ${nota.usuarioid}>
  
     <h6> ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </h6>
@@ -91,23 +174,29 @@ type="text/css">
 	</c:forEach>
 	</ul>
  	
- 	
- 	  <c:if test = "${usuario!= null}">
-
-  <form action="FicarLogado" method="GET">
-    
+ 	<form action="apaga" method="post">
+   
+   	<input type="hidden" name="id" value=${nota.id}>
    	<input type="hidden" name="username" value=${usuario}>
+   
+   <input type="submit" value="Apagar" />
+   </form>
+ 	 
+ <c:if test = "${sessionScope.usuarioLogado!= null}">
+
+  <form action="adicionar" >
+    
+   	<input type="hidden" name="usuario" value=${usuario}>
    	
-   <input type="hidden" name="page" value="adicionaNota.jsp">
+   
     <input type="submit" value="Adicionar Nota" />
    </form>
    
-	 </c:if>
+ </c:if>
 	
-   <h0>                                                       
-    </h0>
    
-   <form action="Logout" method="POST">
+   
+   <form action="logout" >
     
     <input type="submit" value="Logout" />
    </form>
