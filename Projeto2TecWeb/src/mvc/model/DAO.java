@@ -30,7 +30,7 @@ public class DAO {
 		// TODO Auto-generated catch block
 		e.printStackTrace();
 	}
-	 connection = DriverManager.getConnection("jdbc:mysql://localhost/Projeto1", "root", "Du858773");
+	 connection = DriverManager.getConnection("jdbc:mysql://localhost/Projeto1", "root", "");
 	}
 	public List<Usuario> getListau() throws SQLException {
 		List<Usuario> usuario = new ArrayList<Usuario>();

@@ -10,6 +10,11 @@
 
 
 <head>
+
+<%@ page import="java.util.*,mvc.model.*" %>
+<%@ page import="java.util.*,mvc.controller.*" %>
+
+
 <link  href="http://fonts.googleapis.com/css?
 family=Reenie+Beanie:regular" 
 rel="stylesheet"
@@ -100,12 +105,15 @@ h1{
 }
 </style>
 
+<%String gif_url = (String) request.getAttribute("gif_url");%>
+
 </head>
 <%-- String usuario = c:out value= usuario ;
  	 System.out.println(usuario);
 	--%>
 	
 <body>
+
 
 
 <h1>Mural de Notas</h1>
@@ -200,6 +208,15 @@ h1{
     
     <input type="submit" value="Logout" />
    </form>
+   
+
+<div class="form">
+	<form class="login-form" action = "buscaGif">
+		<input type = "text" name="palavra_gif">
+		<input id="home" class="button" type = "submit" value="Buscar Giphy">
+	</form></div>
+   
+	<img src="<%=gif_url%>" class="center" style="float:center;"/>
 	
 	
 	
