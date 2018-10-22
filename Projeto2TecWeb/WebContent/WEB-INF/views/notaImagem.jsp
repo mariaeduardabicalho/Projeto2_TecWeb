@@ -10,6 +10,7 @@
   <div class="form-group">
     <label for="conteudo">Conteudo</label>
     <input type="file" class="form-control" name = "arquivo"/>
+    <input id = "escondido" type="text"  name = "conteudo" value = "sem imagem">
      <input id = "escondido" type = "text" name = "tipo_doc" value = "Img"/>
   </div>
   

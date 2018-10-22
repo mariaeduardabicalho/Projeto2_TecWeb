@@ -27,5 +27,6 @@
 	<classpathentry kind="lib" path="/Users/pedroazambuja/Documents/TomCat/apache-tomcat-9.0.10/lib/jsp-api.jar"/>
 	<classpathentry kind="lib" path="/Users/pedroazambuja/Documents/TomCat/apache-tomcat-9.0.10/lib/servlet-api.jar"/>
 	<classpathentry kind="lib" path="/Users/pedroazambuja/git/Projeto2_TecWeb/Projeto2TecWeb/WebContent/WEB-INF/lib/gson-2.8.5.jar"/>
+	<classpathentry kind="lib" path="/Users/pedroazambuja/git/Projeto2_TecWeb/Projeto2TecWeb/WebContent/WEB-INF/lib/sendgrid-java-latest.jar"/>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>

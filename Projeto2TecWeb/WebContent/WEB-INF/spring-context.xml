@@ -23,5 +23,9 @@ class="org.springframework.web.servlet.view.InternalResourceViewResolver">
 </mvc:interceptors>
 
 <mvc:annotation-driven />
+
+ <bean id="multipartResolver"
+  class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+ </bean>
 	
 </beans>

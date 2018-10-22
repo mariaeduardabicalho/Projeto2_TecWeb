@@ -16,21 +16,23 @@
 
 	<div class = "col-lg-4"></div>  
 
-   <form action = "posta"  class = "col-lg-4" enctype="multipart/form-data">  
+   <form action = "posta" class = "col-lg-4" enctype="multipart/form-data">  
 	   
 		<div class="form-group ">
 	   		<label  for="nome_doc">Título</label>
 	    	<input type="text" class="form-control" name = "nome_doc"/>
 	    	
-	  <%--	   	<input type="text" class="form-control" name = "conteudo"/>
-	    	
-	    	<input type="text" class="form-control" name = "tipo_doc"/>
-	 	</div>  --%>
+	 	</div>  
   
 		<div>
-		<p>Escolha o tipo da sua nota: </p><button 
-			type = "button" onClick="loadDoc('notaTexto.jsp',myFunction)" name="tipo_doc" value = "Texto">Texto</button>
-			<button type = "button" onClick="loadDoc('notaImagem.jsp',myFunction)" name="tipo_doc" value = "Imagem">Imagem</button>
+		<p>Escolha o tipo da sua nota: </p>
+		
+		<button 
+			type = "button" onClick="loadDoc('notaTexto',myFunction)" name="tipo_doc" value = "Texto">Texto
+			</button>
+			<button
+			 type = "button" onClick="loadDoc('notaImagem',myFunction)" name="tipo_doc" value = "Imagem">Imagem
+			 </button>
 		</div>
 
 		<script>

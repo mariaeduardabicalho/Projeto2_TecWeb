@@ -1,13 +1,17 @@
 package mvc.controller;
 
+import java.io.ByteArrayInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.ParseException;
 import java.util.Scanner;
 
 import javax.servlet.http.HttpSession;
+import javax.servlet.http.Part;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,12 +20,14 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.google.gson.*;
 
 import mvc.model.DAO;
 import mvc.model.Notas;
 import mvc.model.Usuario;
+import com.sendgrid.*;
 
 @Controller
 
@@ -29,7 +35,7 @@ public class NotasController {
 	
 	@RequestMapping("/")
 	public String executa(HttpSession session, Model model) throws SQLException, IOException, ParseException {
-		String gif_url = (String) session.getAttribute("endereco_gif");
+		String gif_url = (String) session.getAttribute("palavra_gif");
 		model.addAttribute("gif_url",gif_url);
 		return "notas";
 	}
@@ -40,10 +46,32 @@ public class NotasController {
 	return "adicionaNota";
 	}
 	
-	@RequestMapping(value = "/posta")
+	@RequestMapping( value = "/notaTexto")
+	public String encaminhar_texto(){
+	
+	return "notaTexto";
+	}
+	@RequestMapping( value = "/notaImagem")
+	public String encaminhar_imagem(){
+	
+	return "notaImagem";
+	}
+	
+	@RequestMapping(value = "/posta",headers = "content-type=multipart/*")
+	@ResponseBody
 	public String adiciona(@RequestParam(value = "nome_doc") String nomedoc,
-			@RequestParam(value = "conteudo") String conteudo,@RequestParam(value = "usuario") String usuario, @RequestParam(value = "tipo_doc") String tipodoc) throws SQLException {
+			@RequestParam(value = "conteudo") String conteudo,@RequestParam(value = "usuario") String usuario, @RequestParam(value = "tipo_doc") String tipodoc, @RequestParam(value = "arquivo") Part filePart) throws SQLException, IOException {
+	
 	DAO dao = null;
+	InputStream fileContent = null;
+	String[] mensagem = {"um", "dois", "tres"};
+	
+	 if(conteudo == null) {
+
+		   fileContent = (InputStream) filePart.getInputStream();
+		    }
+    InputStream stream = new ByteArrayInputStream("sem imagem".getBytes(StandardCharsets.UTF_8));
+
 	try {
 		dao = new
 		DAO();
@@ -52,13 +80,32 @@ public class NotasController {
 		e.printStackTrace();
 	}
 	Notas nota = new Notas();
+	
+	if(conteudo != null) {
 	nota.setNome_doc(nomedoc);
 	nota.setConteudo(conteudo);
-	nota.setTipo_doc(conteudo);
+	nota.setTipo_doc(tipodoc);
 	Integer usuarioid = dao.pegarId(usuario);
 	nota.setUsuarioid(usuarioid);
+	nota.setImagem(stream);
 	dao.adiciona(nota);
+	main(mensagem, "pedroazambuja14@gmail.com");
 	return "notas";
+	}
+	else {
+		nota.setNome_doc(nomedoc);
+		nota.setConteudo("Nota com imagem");
+		nota.setImagem(fileContent);
+		nota.setTipo_doc(tipodoc);
+		Integer usuarioid = dao.pegarId(usuario);
+		nota.setUsuarioid(usuarioid);
+		dao.adiciona(nota);
+		main(mensagem, "pedroazambuja14@gmail.com");
+		return "notas";
+		
+	}
+	
+
 	}
 	
 	@RequestMapping(value = "/apaga", method = RequestMethod.POST)
@@ -190,7 +237,7 @@ public class NotasController {
 	
 	@RequestMapping("buscaGif") //buscar gif
 	public String gif(HttpSession session,
-			@RequestParam(value = "endereco_gif") String gif) throws Exception{
+			@RequestParam(value = "palavra_gif") String gif) throws Exception{
 		api(gif, session);
 		
 		
@@ -212,8 +259,6 @@ public class NotasController {
 		
 		int resposta = con.getResponseCode(); 
 		String inline = "";
-		System.out.println("resposta");
-		System.out.println(resposta);
 		if(resposta != 200)
 			throw new RuntimeException("HttpResponseCode: " +resposta);
 			else
@@ -231,9 +276,30 @@ public class NotasController {
 				String gif = root.getAsJsonObject().get("data").getAsJsonObject().get("images").getAsJsonObject().get("fixed_height").getAsJsonObject().get("url").getAsString();
 				System.out.println(gif);
 				
-				session.setAttribute("endereco_gif", gif);
+				session.setAttribute("palavra_gif", gif);
 				return gif;
 			}
 	}
+	  public static void main(String[] args,String remetente) throws IOException {
+		    Email from = new Email("pedrooa@al.insper.edu.br");
+		    String subject = "Acabaram de publicar no mural!";
+		    Email to = new Email(remetente);
+		    Content content = new Content("text/plain", "Acesse o mural para ver o que foi publicado: http://localhost:12032/Projeto2TecWeb/");
+		    Mail mail = new Mail(from, subject, to, content);
+
+		    SendGrid sg = new SendGrid("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");
+		    Request request = new Request();
+		    try {
+		      request.setMethod(Method.POST);
+		      request.setEndpoint("mail/send");
+		      request.setBody(mail.build());
+		      Response response = sg.api(request);
+		      System.out.println(response.getStatusCode());
+		      System.out.println(response.getBody());
+		      System.out.println(response.getHeaders());
+		    } catch (IOException ex) {
+		      throw ex;
+		    }
+		  }
 
 }

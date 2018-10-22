@@ -142,41 +142,41 @@ h1{
 	<c:forEach var="nota" items="${dao.lista}" varStatus="id">
 
  		<li>
-	<a style = "background:#${nota.categoria == 'aviso'? 'FF5359' : 'B9F1FF' }">
-	 
-	 
-	 <form action="edita" method="post">
-	 <input type="hidden" name="usuario" value=${usuario}>
-	 
-	<p> ${nota.nome_doc} </p> <br/>
-     
-
-	 <c:if test = "${nota.conteudo == 'nota com imagem'}">
-	 <img src="data:image/jpg;base64,${nota.base64Image}" width="80" height="53"/>
-	 </c:if>
-	 
-     <input type = "hidden" name = "nome_doc" value= ${nota.nome_doc} ><br/>
-	 
-     <input type = "hidden" name = "tipo_doc" value= ${nota.tipo_doc} ><br/>
-     <input type = "text" name = "conteudo" value= ${nota.conteudo} ><br/>
-     <input type="hidden" name="notaid" value = ${nota.id}>
-     <input type="hidden" name="usuarioid" value = ${nota.usuarioid}>
- 
-    <h6> ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </h6>
-      <h6> ${nota.data_postagem} </h6> <br/>
-    
-     
-      <input type="submit" value="Editar" />
-   </form> </a>
-
-	
-   <form action="apaga" method="post">
-   
-   	<input type="hidden" name="id" value=${nota.id}>
-   	<input type="hidden" name="username" value=${usuario}>
-   
-   <input type="submit" value="Apagar" />
-   </form>
+			<a style = "background:#${nota.categoria == 'aviso'? 'FF5359' : 'B9F1FF' }">
+			 
+			 
+			 <form action="edita" method="post">
+			 <input type="hidden" name="usuario" value=${usuario}>
+			 
+			<p> ${nota.nome_doc} </p> <br/>
+		     
+		
+			 <c:if test = "${nota.conteudo == 'nota com imagem'}">
+			 <img src="data:image/jpg;base64,${nota.base64Image}" width="80" height="53"/>
+			 </c:if>
+			 
+		     <input type = "hidden" name = "nome_doc" value= ${nota.nome_doc} ><br/>
+			 
+		     <input type = "hidden" name = "tipo_doc" value= ${nota.tipo_doc} ><br/>
+		     <input type = "text" name = "conteudo" value= ${nota.conteudo} ><br/>
+		     <input type="hidden" name="notaid" value = ${nota.id}>
+		     <input type="hidden" name="usuarioid" value = ${nota.usuarioid}>
+		 
+		    <h6> ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </h6>
+		      <h6> ${nota.data_postagem} </h6> <br/>
+		    
+		     
+		      <input type="submit" value="Editar" />
+		   </form> </a>
+		
+			
+		   <form action="apaga" method="post">
+		   
+		   	<input type="hidden" name="id" value=${nota.id}>
+		   	<input type="hidden" name="username" value=${usuario}>
+		   
+		   <input type="submit" value="Apagar" />
+		   </form>
 
 	</li>
 	</c:forEach>
