@@ -59,8 +59,8 @@ a{
   color:#000;
 /*   background:#ffc; */
   display:block;
-  height:20em;
-  width:20em;
+  height:30em;
+  width:30em;
   padding:1em;
   font-family:"Poppins",arial,sans-serif;
   
@@ -105,7 +105,7 @@ h1{
 }
 </style>
 
-<%String gif_url = (String) request.getAttribute("gif_url");%>
+<%--String gif_url = (String) request.getAttribute("gif_url");--%>
 
 </head>
 <%-- String usuario = c:out value= usuario ;
@@ -161,7 +161,12 @@ h1{
 		     <input type = "text" name = "conteudo" value= ${nota.conteudo} ><br/>
 		     <input type="hidden" name="notaid" value = ${nota.id}>
 		     <input type="hidden" name="usuarioid" value = ${nota.usuarioid}>
-		 
+	
+		    
+			 <img src= ${nota.palavra_gif} class="center" style="float:center;"/>
+			
+		     
+		 	
 		    <p> <br>Postado por : ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </p>
 		      <h6> ${nota.data_postagem} </h6> <br/>
 		    
@@ -182,13 +187,7 @@ h1{
 	</c:forEach>
 	</ul>
  	
- 	<form action="apaga" method="post">
-   
-   	<input type="hidden" name="id" value=${nota.id}>
-   	<input type="hidden" name="username" value=${usuario}>
-   
-   <input type="submit" value="Apagar" />
-   </form>
+
  	 
  <c:if test = "${sessionScope.usuarioLogado!= null}">
 
@@ -209,14 +208,14 @@ h1{
     <input type="submit" value="Logout" />
    </form>
    
-
+<%-- 
 <div class="form">
 	<form class="login-form" action = "buscaGif">
 		<input type = "text" name="palavra_gif">
 		<input id="home" class="button" type = "submit" value="Buscar Giphy">
 	</form></div>
    
-	<img src="<%=gif_url%>" class="center" style="float:center;"/>
+	<img src="<%=gif_url%>" class="center" style="float:center;"/> --%>
 	
 	
 	
