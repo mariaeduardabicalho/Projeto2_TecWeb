@@ -7,7 +7,22 @@
 <link rel="stylesheet" type="text/css" href="css/styles.css">
 <meta charset="UTF-8">
 <title>Adicionar Nota</title>
+
+<%String gif_url = (String) request.getAttribute("gif_url");
+System.out.println(gif_url);
+%>
+
+
+
 </head>
+
+		<div class="form">
+	<form class="login-form" action = "buscaGif">
+		<input type = "text" name="palavra_gif">
+		<input id="home" class="button" type = "submit" value="Buscar Gif">
+	</form></div>
+   
+	<img src="<%=gif_url%>" class="center" style="float:center;"/>
 <body>
 
 <div style = "text-align:center"><h1>Preencha sua Nota</h1></div>
@@ -21,6 +36,8 @@
 		<div class="form-group ">
 	   		<label  for="nome_doc">Título</label>
 	    	<input type="text" class="form-control" name = "nome_doc"/>
+	    	<input type="hidden" class="form-control" name = "palavra_gif" value = ${gif_url}/>
+	    	
 	    	
 	 	</div>  
   
@@ -54,13 +71,8 @@
 				} 
 		</script>
 
+
 		<div id = "conteudo"></div><br>  
-
-  
-		  	  
-		  
-		
-
 
 		    <label for="categoria">Categoria: </label><br>
 		    <label class = "radio-inline"><input  type="radio"  name = "categoria" value = "comum" checked> Comum</label>
@@ -75,5 +87,7 @@
 	</form>
 	<div class = "col-lg-4"></div>
 </section> 
+		
+
 </body>
 </html>

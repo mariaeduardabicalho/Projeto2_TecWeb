@@ -17,10 +17,12 @@ public class Notas {
 	private String categoria;
 	private String tipo_doc;
 	private String conteudo;
+	private String palavra_gif;
 	private Date data_postagem;
 	private InputStream imagem;
 	private String base64Image;
 	private MultipartFile foto;
+
 	
 	
 	
@@ -65,7 +67,9 @@ public class Notas {
 	public void setFoto(MultipartFile foto) {
 		this.foto = foto;
 	}
-
+	
+	public String getpalavra_gif() {return this.palavra_gif;}
+	public void setpalavra_gif(String palavra_gif) {this.palavra_gif = palavra_gif;}
 	
 	
 
