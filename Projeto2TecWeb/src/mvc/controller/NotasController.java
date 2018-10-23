@@ -8,6 +8,7 @@ import java.net.URL;
 import java.nio.charset.StandardCharsets;
 import java.sql.SQLException;
 import java.text.ParseException;
+import java.util.List;
 import java.util.Scanner;
 
 import javax.servlet.http.HttpSession;
@@ -65,14 +66,8 @@ public class NotasController {
 	
 	DAO dao = null;
 	InputStream fileContent = null;
-	String[] mensagem = {"um", "dois", "tres"};
-	System.out.println(conteudo);
-	
 	 if(conteudo.equals("nota com imagem")) {
-		
-
 		   fileContent = (InputStream) filePart.getInputStream();
-//		   System.out.println(fileContent);
 		    }
     InputStream stream = new ByteArrayInputStream("sem imagem".getBytes(StandardCharsets.UTF_8));
 
@@ -100,7 +95,6 @@ public class NotasController {
 		nota.setNome_doc(nomedoc);
 		nota.setConteudo(conteudo);
 		nota.setImagem(stream);
-		
 		nota.setTipo_doc(tipodoc);
 		Integer usuarioid = dao.pegarId(usuario);
 		nota.setUsuarioid(usuarioid);
@@ -109,7 +103,17 @@ public class NotasController {
 		
 		
 	}
-	main(mensagem, "pedroazambuja14@gmail.com");
+	List<Usuario> usuarios = dao.getListau();
+	
+	for (Usuario usuario1 : usuarios ) {
+		try {
+			main(usuario1.getEmail());
+		}
+		catch(IOException ex){
+			throw ex;
+		}
+		
+	}
 	return "redirect:/";
 	
 
@@ -287,7 +291,7 @@ public class NotasController {
 				return gif;
 			}
 	}
-	  public static void main(String[] args,String remetente) throws IOException {
+	  public static void main(String remetente) throws IOException {
 		    Email from = new Email("pedrooa@al.insper.edu.br");
 		    String subject = "Acabaram de publicar no mural!";
 		    Email to = new Email(remetente);
