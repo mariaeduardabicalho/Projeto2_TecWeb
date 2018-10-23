@@ -28,6 +28,7 @@ import mvc.model.DAO;
 import mvc.model.Notas;
 import mvc.model.Usuario;
 import com.sendgrid.*;
+import org.springframework.web.multipart.MultipartFile;
 
 @Controller
 
@@ -57,16 +58,16 @@ public class NotasController {
 	return "notaImagem";
 	}
 	
-	@RequestMapping(value = "/posta",headers = "content-type=multipart/*")
+	@RequestMapping(value = "/posta",headers = "content-type=multipart/form-data", method = RequestMethod.POST)
 	@ResponseBody
 	public String adiciona(@RequestParam(value = "nome_doc") String nomedoc,
-			@RequestParam(value = "conteudo") String conteudo,@RequestParam(value = "usuario") String usuario, @RequestParam(value = "tipo_doc") String tipodoc, @RequestParam(value = "arquivo") Part filePart) throws SQLException, IOException {
+			@RequestParam(value = "conteudo") String conteudo,@RequestParam(value = "usuario") String usuario, @RequestParam(value = "tipo_doc") String tipodoc, @RequestParam(value = "arquivo") MultipartFile filePart) throws SQLException, IOException {
 	
 	DAO dao = null;
 	InputStream fileContent = null;
 	String[] mensagem = {"um", "dois", "tres"};
 	
-	 if(conteudo == null) {
+	 if(conteudo == "nota com imagem") {
 
 		   fileContent = (InputStream) filePart.getInputStream();
 		    }
@@ -89,21 +90,22 @@ public class NotasController {
 	nota.setUsuarioid(usuarioid);
 	nota.setImagem(stream);
 	dao.adiciona(nota);
-	main(mensagem, "pedroazambuja14@gmail.com");
-	return "notas";
+	
 	}
 	else {
 		nota.setNome_doc(nomedoc);
-		nota.setConteudo("Nota com imagem");
+		nota.setConteudo("nota com imagem");
 		nota.setImagem(fileContent);
 		nota.setTipo_doc(tipodoc);
 		Integer usuarioid = dao.pegarId(usuario);
 		nota.setUsuarioid(usuarioid);
 		dao.adiciona(nota);
-		main(mensagem, "pedroazambuja14@gmail.com");
-		return "notas";
+		
+		
 		
 	}
+	main(mensagem, "pedroazambuja14@gmail.com");
+	return "notas";
 	
 
 	}

@@ -16,7 +16,7 @@
 
 	<div class = "col-lg-4"></div>  
 
-   <form action = "posta" class = "col-lg-4" enctype="multipart/form-data">  
+   <form action = "posta" class = "col-lg-4" enctype="multipart/form-data" method="post">  
 	   
 		<div class="form-group ">
 	   		<label  for="nome_doc">Título</label>
@@ -43,7 +43,7 @@
 			      cFunction(this);
 			    }
 			  };
-			  xhttp.open("GET", url, true);
+			  xhttp.open("POST", url, true);
 			  xhttp.send();
 			}
 			

@@ -8,6 +8,7 @@ import java.text.SimpleDateFormat;
 
 
 import com.mysql.cj.jdbc.Blob;
+import org.springframework.web.multipart.MultipartFile;
 
 public class Notas {
 	private Integer id;
@@ -19,6 +20,7 @@ public class Notas {
 	private Date data_postagem;
 	private InputStream imagem;
 	private String base64Image;
+	private MultipartFile foto;
 	
 	
 	
@@ -56,6 +58,12 @@ public class Notas {
 	}
 	public void setBase64Image(String base64Image) {
 		this.base64Image = base64Image;
+	}
+	public MultipartFile getFoto() {
+		return foto;
+	}
+	public void setFoto(MultipartFile foto) {
+		this.foto = foto;
 	}
 
 	
