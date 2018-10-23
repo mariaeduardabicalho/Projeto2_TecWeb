@@ -162,7 +162,7 @@ h1{
 		     <input type="hidden" name="notaid" value = ${nota.id}>
 		     <input type="hidden" name="usuarioid" value = ${nota.usuarioid}>
 		 
-		    <h6> ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </h6>
+		    <p> <br>Postado por : ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </p>
 		      <h6> ${nota.data_postagem} </h6> <br/>
 		    
 		     

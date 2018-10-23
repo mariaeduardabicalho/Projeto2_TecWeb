@@ -66,10 +66,13 @@ public class NotasController {
 	DAO dao = null;
 	InputStream fileContent = null;
 	String[] mensagem = {"um", "dois", "tres"};
+	System.out.println(conteudo);
 	
-	 if(conteudo == "nota com imagem") {
+	 if(conteudo.equals("nota com imagem")) {
+		
 
 		   fileContent = (InputStream) filePart.getInputStream();
+//		   System.out.println(fileContent);
 		    }
     InputStream stream = new ByteArrayInputStream("sem imagem".getBytes(StandardCharsets.UTF_8));
 
@@ -82,20 +85,22 @@ public class NotasController {
 	}
 	Notas nota = new Notas();
 	
-	if(conteudo != null) {
+	if(conteudo.equals("nota com imagem")) {
 	nota.setNome_doc(nomedoc);
 	nota.setConteudo(conteudo);
 	nota.setTipo_doc(tipodoc);
 	Integer usuarioid = dao.pegarId(usuario);
 	nota.setUsuarioid(usuarioid);
-	nota.setImagem(stream);
+	nota.setImagem(fileContent);
+	
 	dao.adiciona(nota);
 	
 	}
 	else {
 		nota.setNome_doc(nomedoc);
-		nota.setConteudo("nota com imagem");
-		nota.setImagem(fileContent);
+		nota.setConteudo(conteudo);
+		nota.setImagem(stream);
+		
 		nota.setTipo_doc(tipodoc);
 		Integer usuarioid = dao.pegarId(usuario);
 		nota.setUsuarioid(usuarioid);
@@ -105,7 +110,7 @@ public class NotasController {
 		
 	}
 	main(mensagem, "pedroazambuja14@gmail.com");
-	return "notas";
+	return "redirect:/";
 	
 
 	}
