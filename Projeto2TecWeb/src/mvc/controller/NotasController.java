@@ -60,7 +60,6 @@ public class NotasController {
 	}
 	
 	@RequestMapping(value = "/posta",headers = "content-type=multipart/form-data", method = RequestMethod.POST)
-	@ResponseBody
 	public String adiciona(@RequestParam(value = "nome_doc") String nomedoc,
 			@RequestParam(value = "conteudo") String conteudo,@RequestParam(value = "usuario") String usuario, @RequestParam(value = "tipo_doc") String tipodoc, @RequestParam(value = "arquivo") MultipartFile filePart) throws SQLException, IOException {
 	
@@ -104,16 +103,17 @@ public class NotasController {
 		
 	}
 	List<Usuario> usuarios = dao.getListau();
-	
-	for (Usuario usuario1 : usuarios ) {
-		try {
-			main(usuario1.getEmail());
-		}
-		catch(IOException ex){
-			throw ex;
-		}
-		
-	}
+//	
+//	for (Usuario usuario1 : usuarios ) {
+//		try {
+//			main(usuario1.getEmail());
+//			
+//		}
+//		catch(IOException ex){
+//			throw ex;
+//		}
+//		
+//	}
 	return "redirect:/";
 	
 
@@ -249,13 +249,13 @@ public class NotasController {
 	@RequestMapping("buscaGif") //buscar gif
 	public String gif(HttpSession session,
 			@RequestParam(value = "palavra_gif") String gif) throws Exception{
-		api(gif, session);
+		giphy(gif, session);
 		
 		
 		return "redirect:/";
 	}
 	
-	public String api(String palavra, HttpSession session) throws IOException{
+	public String giphy(String palavra, HttpSession session) throws IOException{
 		
 		String  tag = palavra;
 		
@@ -285,7 +285,6 @@ public class NotasController {
 				
 				JsonElement root = new JsonParser().parse(inline);
 				String gif = root.getAsJsonObject().get("data").getAsJsonObject().get("images").getAsJsonObject().get("fixed_height").getAsJsonObject().get("url").getAsString();
-				System.out.println(gif);
 				
 				session.setAttribute("palavra_gif", gif);
 				return gif;

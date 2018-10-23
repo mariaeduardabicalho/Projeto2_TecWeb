@@ -142,7 +142,7 @@ h1{
 	<c:forEach var="nota" items="${dao.lista}" varStatus="id">
 
  		<li>
-			<a style = "background:#${nota.categoria == 'aviso'? 'FF5359' : 'B9F1FF' }">
+			<a style = "background:#${nota.categoria == 'Aviso'? 'FF5359' : 'B9F1FF' }">
 			 
 			 
 			 <form action="edita" method="post">
@@ -162,7 +162,7 @@ h1{
 		     <input type="hidden" name="notaid" value = ${nota.id}>
 		     <input type="hidden" name="usuarioid" value = ${nota.usuarioid}>
 		 
-		    <p> <br>Postado por : ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))} </p>
+		   <p> postado por: ${dao.pegarnome(Integer.parseInt(nota.usuarioid))} ${dao.pegarsobrenome(Integer.parseInt(nota.usuarioid))}</p>
 		      <h6> ${nota.data_postagem} </h6> <br/>
 		    
 		     
